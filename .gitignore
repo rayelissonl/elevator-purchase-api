@@ -1,0 +1,40 @@
+# Executáveis Go
+*.exe
+*.test
+*.out
+
+# Diretórios de dependências
+/vendor/
+
+# Módulos Go (gerados automaticamente)
+go.sum
+
+# Binários compilados
+bin/
+build/
+dist/
+
+# Docker
+*.env
+docker-compose.override.yml
+
+# Logs
+*.log
+*.tmp
+
+# IDEs e editores
+.vscode/
+.idea/
+*.swp
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Testes
+coverage.out
+
+# Configurações locais
+.env.local
+.env.*
+!.env.example
