@@ -6,4 +6,5 @@ type Repository interface {
 	FindByID(id string) (*Pedido, error)
 	FindAll() ([]Pedido, error)
 	UpdateStatus(id string, status Status) error
+	Delete(id string) error
 }

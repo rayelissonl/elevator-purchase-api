@@ -46,3 +46,11 @@ type UpdatePedidoStatusUseCase struct {
 func (uc *UpdatePedidoStatusUseCase) Execute(id string, status pedido.Status) error {
 	return uc.Repo.UpdateStatus(id, status)
 }
+
+type DeletePedidoUseCase struct {
+	Repo pedido.Repository
+}
+
+func (uc *DeletePedidoUseCase) Execute(id string) error {
+	return uc.Repo.Delete(id)
+}

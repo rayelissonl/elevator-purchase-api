@@ -34,3 +34,12 @@ func (r *PedidoGormRepo) FindAll() ([]pedido.Pedido, error) {
 func (r *PedidoGormRepo) UpdateStatus(id string, status pedido.Status) error {
 	return r.DB.Model(&pedido.Pedido{}).Where("id = ?", id).Update("status", status).Error
 }
+
+func (r *PedidoGormRepo) Delete(id string) error {
+	var p pedido.Pedido
+	// Deleta o pedido com o ID fornecido
+	if err := r.DB.Delete(&p, "id = ?", id).Error; err != nil {
+		return err
+	}
+	return nil
+}

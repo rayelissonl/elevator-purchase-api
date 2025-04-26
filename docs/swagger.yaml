@@ -1,0 +1,183 @@
+basePath: /api
+definitions:
+  handlers.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+  pedido.Pedido:
+    properties:
+      cliente:
+        type: string
+      dataAprovacao:
+        type: string
+      dataEntrega:
+        type: string
+      dataSolicitacao:
+        description: Documentos      pq.StringArray `gorm:"type:text[]" json:"documentos"`
+        type: string
+      documentos:
+        items:
+          type: string
+        type: array
+      fornecedor:
+        type: string
+      foto:
+        type: string
+      id:
+        type: string
+      localArmazenamento:
+        type: string
+      nomePeca:
+        type: string
+      status:
+        $ref: '#/definitions/pedido.Status'
+      valor:
+        type: number
+    type: object
+  pedido.Status:
+    enum:
+    - cotado
+    - fazendo_orcamento
+    - orcamento
+    - compra_aprovada
+    - comprado
+    type: string
+    x-enum-varnames:
+    - Cotado
+    - FazendoOrcamento
+    - Orcamento
+    - CompraAprovada
+    - Comprado
+host: localhost:8080
+info:
+  contact:
+    email: suporte@elevator.com
+    name: Suporte
+  description: API para gestão de pedidos de compra para manutenção de elevadores.
+  termsOfService: http://swagger.io/terms/
+  title: Elevator Purchase API
+  version: "1.0"
+paths:
+  /pedidos:
+    get:
+      consumes:
+      - application/json
+      description: Lista todos os pedidos cadastrados
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/pedido.Pedido'
+            type: array
+      summary: Listar Pedidos
+      tags:
+      - pedidos
+    post:
+      consumes:
+      - application/json
+      description: Cria um novo pedido no sistema
+      parameters:
+      - description: Dados do Pedido
+        in: body
+        name: pedido
+        required: true
+        schema:
+          $ref: '#/definitions/pedido.Pedido'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/pedido.Pedido'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: Cria um novo pedido
+      tags:
+      - pedidos
+  /pedidos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deleta um pedido pelo ID
+      parameters:
+      - description: ID do Pedido
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: Pedido deletado com sucesso
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: Deleta um pedido
+      tags:
+      - pedidos
+    put:
+      consumes:
+      - application/json
+      description: Atualiza os dados de um pedido existente
+      parameters:
+      - description: ID do Pedido
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Dados atualizados do Pedido
+        in: body
+        name: pedido
+        required: true
+        schema:
+          $ref: '#/definitions/pedido.Pedido'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/pedido.Pedido'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/handlers.ErrorResponse'
+      summary: Atualiza um pedido
+      tags:
+      - pedidos
+swagger: "2.0"

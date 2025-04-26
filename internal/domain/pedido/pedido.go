@@ -16,17 +16,20 @@ const (
 	Comprado         Status = "comprado"
 )
 
+// Pedido representa um pedido de compra
+// swagger:model Pedido
 type Pedido struct {
-	ID                 string `gorm:"primaryKey"`
-	NomePeca           string
-	Fornecedor         string
-	Cliente            string
-	Foto               string
-	Valor              float64
-	LocalArmazenamento string
-	Documentos         pq.StringArray `gorm:"type:text[]"`
-	DataSolicitacao    time.Time
-	DataAprovacao      *time.Time
-	DataEntrega        *time.Time
-	Status             Status
+	ID                 string  `gorm:"primaryKey"`
+	NomePeca           string  `json:"nomePeca"`
+	Fornecedor         string  `json:"fornecedor"`
+	Cliente            string  `json:"cliente"`
+	Foto               string  `json:"foto"`
+	Valor              float64 `json:"valor"`
+	LocalArmazenamento string  `json:"localArmazenamento"`
+	//Documentos         []string `gorm:"type:text[]" json:"documentos"`
+	Documentos      pq.StringArray `gorm:"type:text[]" json:"documentos"`
+	DataSolicitacao time.Time      `json:"dataSolicitacao"`
+	DataAprovacao   *time.Time     `json:"dataAprovacao,omitempty"`
+	DataEntrega     *time.Time     `json:"dataEntrega,omitempty"`
+	Status          Status         `json:"status"`
 }
