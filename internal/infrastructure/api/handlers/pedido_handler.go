@@ -7,6 +7,7 @@ import (
 
 	"github.com/rayelissonl/elevator-purchase-api/internal/application/usecases"
 	"github.com/rayelissonl/elevator-purchase-api/internal/domain/pedido"
+
 	_ "github.com/rayelissonl/elevator-purchase-api/docs"
 )
 
